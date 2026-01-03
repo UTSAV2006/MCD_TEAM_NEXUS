@@ -114,7 +114,7 @@ MCD Administration Dashboard
 <h2>Installation</h2>
 <pre>
 git clone https://github.com/UTSAV2006/MCD_TEAM_NEXUS
-cd your-MCD_TEAM_NEXUS
+cd MCD_TEAM_NEXUS
 npm install
 npm start
 </pre>
