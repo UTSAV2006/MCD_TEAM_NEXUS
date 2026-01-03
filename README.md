@@ -1,73 +1,156 @@
-# Welcome to your Lovable project
+<h1 align="center">MCD HRMS Platform</h1>
+<p align="center">
+A centralized, secure and scalable Human Resource Management System for the Municipal Corporation of Delhi (MCD)
+</p>
 
-## Project info
+<p align="center"><b>Team Name:</b> TeamNexus</p>
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+<hr>
 
-## How can I edit this code?
+<h2>Problem Statement</h2>
+<p>
+The Municipal Corporation of Delhi manages thousands of municipal employees across multiple departments. Existing HR operations are fragmented, manual and lack real-time visibility, leading to inefficiencies in recruitment, attendance, transfers, payroll management, performance evaluation and grievance redressal.
+</p>
+<p>
+This project proposes a unified, secure and production-ready HRMS platform to digitize and centralize all MCD human resource operations.
+</p>
 
-There are several ways of editing your application.
+<h2>Solution Overview</h2>
+<p>
+The MCD HRMS Platform is a full-stack, secure web system that centralizes employee lifecycle management — from recruitment to retirement — into a single digital governance platform.
+</p>
+<p>
+It enables municipal authorities to automate HR workflows, improve transparency, reduce delays and make data-driven administrative decisions.
+</p>
 
-**Use Lovable**
+<h2>Core Modules</h2>
+<ul>
+  <li>Employee Master & Centralized Records</li>
+  <li>Recruitment & Digital Onboarding</li>
+  <li>Attendance & Leave Management</li>
+  <li>Transfers & Posting Control</li>
+  <li>Payroll & Salary Processing</li>
+  <li>Performance Evaluation</li>
+  <li>Grievance Redressal System</li>
+  <li>Inter-Department Coordination</li>
+</ul>
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+<h2>System Architecture</h2>
+<pre>
+User Portals (Employees / Admin / Authorities)
+            |
+            v
+React Frontend (Vite + Tailwind)
+            |
+            v
+Secure REST APIs (Node.js + Express)
+            |
+            v
+PostgreSQL Central Database
+            |
+            v
+Audit Logs & Analytics Engine
+            |
+            v
+MCD Administration Dashboard
+</pre>
 
-Changes made via Lovable will be committed automatically to this repo.
+<h2>Frontend Stack</h2>
+<table border="1" cellpadding="6">
+<tr><th>Technology</th><th>Purpose</th></tr>
+<tr><td>React 18+</td><td>Core UI Framework</td></tr>
+<tr><td>Vite</td><td>Build Tool & Dev Server</td></tr>
+<tr><td>React Router</td><td>Client Side Routing</td></tr>
+<tr><td>Axios</td><td>HTTP Client for APIs</td></tr>
+<tr><td>Tailwind CSS</td><td>Responsive Styling & UI Design</td></tr>
+<tr><td>HTML5 / CSS3</td><td>Semantic Markup</td></tr>
+</table>
 
-**Use your preferred IDE**
+<h2>Backend Stack</h2>
+<table border="1" cellpadding="6">
+<tr><th>Technology</th><th>Purpose</th></tr>
+<tr><td>Node.js 18+</td><td>Runtime Environment</td></tr>
+<tr><td>Express.js</td><td>REST API Framework</td></tr>
+<tr><td>PostgreSQL</td><td>Relational Database</td></tr>
+<tr><td>pg</td><td>PostgreSQL Client</td></tr>
+<tr><td>jsonwebtoken (JWT)</td><td>Authentication Tokens</td></tr>
+<tr><td>bcryptjs</td><td>Password Hashing</td></tr>
+<tr><td>helmet</td><td>Security Headers</td></tr>
+<tr><td>express-rate-limit</td><td>API Rate Limiting</td></tr>
+<tr><td>express-validator</td><td>Input Validation</td></tr>
+<tr><td>dotenv</td><td>Environment Variables</td></tr>
+</table>
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+<h2>Development & Deployment</h2>
+<table border="1" cellpadding="6">
+<tr><th>Tool</th><th>Purpose</th></tr>
+<tr><td>Git</td><td>Version Control</td></tr>
+<tr><td>GitHub</td><td>Source Code Repository</td></tr>
+<tr><td>Vercel</td><td>Frontend Hosting</td></tr>
+<tr><td>Railway</td><td>Backend & PostgreSQL Hosting</td></tr>
+<tr><td>VS Code</td><td>Code Editor</td></tr>
+<tr><td>npm</td><td>Package Manager</td></tr>
+</table>
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+<h2>Security Features</h2>
+<ul>
+  <li>JWT Token Authentication</li>
+  <li>Password Hashing (bcrypt)</li>
+  <li>API Rate Limiting</li>
+  <li>CORS Protection</li>
+  <li>Helmet Security Headers</li>
+  <li>Input Validation</li>
+  <li>Advanced Audit Logging</li>
+</ul>
 
-Follow these steps:
+<h2>Architecture Pattern</h2>
+<ul>
+  <li>Microservices-inspired design</li>
+  <li>Layered Architecture (Presentation → API → Business Logic → Data)</li>
+  <li>RESTful APIs</li>
+  <li>Role-Based Access Control (RBAC)</li>
+</ul>
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+<h2>Installation</h2>
+<pre>
+git clone https://github.com/your-repo-name.git
+cd your-repo-name
+npm install
+npm start
+</pre>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+<p>Open in browser:</p>
+<pre>http://localhost:3000</pre>
 
-# Step 3: Install the necessary dependencies.
-npm i
+<h2>Impact</h2>
+<ul>
+  <li>Centralizes HR operations of MCD</li>
+  <li>Improves transparency and accountability</li>
+  <li>Reduces paperwork and processing delays</li>
+  <li>Prevents administrative inefficiencies</li>
+  <li>Enables data-driven governance</li>
+</ul>
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+<h2>Future Enhancements</h2>
+<ul>
+  <li>Biometric attendance integration</li>
+  <li>Mobile employee application</li>
+  <li>AI-based workforce analytics</li>
+  <li>Smart City integration</li>
+  <li>Automated compliance dashboards</li>
+</ul>
 
-**Edit a file directly in GitHub**
+<h2>Team</h2>
+<table border="1" cellpadding="6">
+<tr><th>Name</th><th>Role</th></tr>
+<tr><td>Pramod Mohanty</td><td>Team Lead</td></tr>
+<tr><td>Rudransh Kumar Singh</td><td>Developer</td></tr>
+<tr><td>Utsav</td><td>Developer</td></tr>
+<tr><td>Smridhi Jain</td><td>Developer</td></tr>
+<tr><td>Shivangi</td><td>Developer</td></tr>
+</table>
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+<h2>License</h2>
+<p>
+This project is developed for hackathon demonstration purposes and is open for academic and non-commercial use.
+</p>
