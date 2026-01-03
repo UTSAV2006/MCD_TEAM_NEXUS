@@ -113,8 +113,8 @@ MCD Administration Dashboard
 
 <h2>Installation</h2>
 <pre>
-git clone https://github.com/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/UTSAV2006/MCD_TEAM_NEXUS
+cd your-MCD_TEAM_NEXUS
 npm install
 npm start
 </pre>
@@ -149,8 +149,3 @@ npm start
 <tr><td>Smridhi Jain</td><td>Developer</td></tr>
 <tr><td>Shivangi</td><td>Developer</td></tr>
 </table>
-
-<h2>License</h2>
-<p>
-This project is developed for hackathon demonstration purposes and is open for academic and non-commercial use.
-</p>
