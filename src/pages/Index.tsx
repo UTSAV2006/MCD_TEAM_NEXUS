@@ -7,6 +7,7 @@ import MapWidget from '@/components/dashboard/MapWidget';
 import AlertsFeed from '@/components/dashboard/AlertsFeed';
 import Leaderboard from '@/components/dashboard/Leaderboard';
 import GhostDetectionPanel from '@/components/dashboard/GhostDetectionPanel';
+import AttendanceTab from '@/components/dashboard/AttendanceTab';
 import { useGhostDetection } from '@/hooks/useGhostDetection';
 
 const Index = () => {
@@ -99,7 +100,9 @@ const Index = () => {
               <GhostDetectionPanel />
             </div>
           )}
-
+          {activeTab === 'attendance' && (
+            <AttendanceTab />
+          )}
           {/* Placeholder for other tabs */}
           {activeTab !== 'dashboard' && activeTab !== 'ghost' && (
             <div className="flex flex-col items-center justify-center h-[60vh] text-center">
