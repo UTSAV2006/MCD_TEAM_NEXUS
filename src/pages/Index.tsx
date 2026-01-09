@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Users, UserCheck, Ghost, Zap } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Sidebar from '@/components/layout/Sidebar';
@@ -6,9 +6,12 @@ import SummaryCard from '@/components/dashboard/SummaryCard';
 import MapWidget from '@/components/dashboard/MapWidget';
 import AlertsFeed from '@/components/dashboard/AlertsFeed';
 import Leaderboard from '@/components/dashboard/Leaderboard';
+import GhostDetectionPanel from '@/components/dashboard/GhostDetectionPanel';
+import { useGhostDetection } from '@/hooks/useGhostDetection';
 
 const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { stats } = useGhostDetection();
 
   return (
     <div className="min-h-screen bg-background">
@@ -44,14 +47,14 @@ const Index = () => {
             />
             <SummaryCard
               title="AI Anomalies Detected"
-              value="45"
+              value={stats?.total?.toString() || "0"}
               subtitle="Potential 'Ghost' Entries Today"
               icon={Ghost}
               valueColor="danger"
-              trend="up"
-              trendValue="+12"
+              trend={stats?.total && stats.total > 0 ? "up" : "stable"}
+              trendValue={stats?.by_severity.critical ? `+${stats.by_severity.critical} critical` : ""}
               actionLabel="View List"
-              onAction={() => console.log('View anomalies')}
+              onAction={() => document.getElementById('ghost-panel')?.scrollIntoView({ behavior: 'smooth' })}
             />
             <SummaryCard
               title="Rapid Tasks Open"
@@ -69,7 +72,12 @@ const Index = () => {
             <MapWidget />
           </div>
 
-          {/* Row 3: Alerts Feed & Leaderboard */}
+          {/* Row 3: Ghost Detection Panel */}
+          <div className="mb-6" id="ghost-panel">
+            <GhostDetectionPanel />
+          </div>
+
+          {/* Row 4: Alerts Feed & Leaderboard */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <AlertsFeed />
             <Leaderboard />
