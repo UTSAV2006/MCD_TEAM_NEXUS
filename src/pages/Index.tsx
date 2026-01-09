@@ -33,6 +33,7 @@ const Index = () => {
         onClose={() => setSidebarOpen(false)} 
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        userRole='admin'
       />
 
       <main className="lg:ml-64 pt-16 transition-all duration-300">
