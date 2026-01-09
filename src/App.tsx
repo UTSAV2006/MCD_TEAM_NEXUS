@@ -1,29 +1,37 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import WorkerPortal from "./pages/WorkerPortal";
-import NotFound from "./pages/NotFound";
+import { useState } from 'react';
+import Index from './pages/Index';
+import Login from './pages/Login';
 
-const queryClient = new QueryClient();
+// User type definition
+interface User {
+  role: 'admin' | 'employee';
+  name: string;
+}
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/worker" element={<WorkerPortal />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  const [user, setUser] = useState<User | null>(null);
+
+  // Login handle karne ka function
+  const handleLogin = (role: 'admin' | 'employee', name: string) => {
+    setUser({ role, name });
+  };
+
+  // Logout handle karne ka function
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  return (
+    <>
+      {!user ? (
+        // Agar login nahi hai toh Login Page dikhao
+        <Login onLogin={handleLogin} />
+      ) : (
+        // Agar login hai toh Dashboard (Index) dikhao aur user data pass karo
+        <Index user={user} onLogout={handleLogout} />
+      )}
+    </>
+  );
+}
 
 export default App;
