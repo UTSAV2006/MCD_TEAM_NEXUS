@@ -14,7 +14,223 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      anomalies: {
+        Row: {
+          anomaly_type: Database["public"]["Enums"]["anomaly_type"]
+          attendance_log_ids: string[] | null
+          created_at: string | null
+          description: string
+          id: string
+          is_resolved: boolean | null
+          latitude: number | null
+          longitude: number | null
+          metadata: Json | null
+          resolved_at: string | null
+          resolved_by: string | null
+          severity: Database["public"]["Enums"]["anomaly_severity"]
+          title: string
+          worker_ids: string[]
+          zone: string | null
+        }
+        Insert: {
+          anomaly_type: Database["public"]["Enums"]["anomaly_type"]
+          attendance_log_ids?: string[] | null
+          created_at?: string | null
+          description: string
+          id?: string
+          is_resolved?: boolean | null
+          latitude?: number | null
+          longitude?: number | null
+          metadata?: Json | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: Database["public"]["Enums"]["anomaly_severity"]
+          title: string
+          worker_ids: string[]
+          zone?: string | null
+        }
+        Update: {
+          anomaly_type?: Database["public"]["Enums"]["anomaly_type"]
+          attendance_log_ids?: string[] | null
+          created_at?: string | null
+          description?: string
+          id?: string
+          is_resolved?: boolean | null
+          latitude?: number | null
+          longitude?: number | null
+          metadata?: Json | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: Database["public"]["Enums"]["anomaly_severity"]
+          title?: string
+          worker_ids?: string[]
+          zone?: string | null
+        }
+        Relationships: []
+      }
+      attendance_logs: {
+        Row: {
+          check_in_time: string
+          check_out_time: string | null
+          created_at: string | null
+          device_fingerprint: string | null
+          id: string
+          ip_address: string | null
+          is_verified: boolean | null
+          latitude: number | null
+          longitude: number | null
+          verification_method: string | null
+          worker_id: string
+          zone: string | null
+        }
+        Insert: {
+          check_in_time?: string
+          check_out_time?: string | null
+          created_at?: string | null
+          device_fingerprint?: string | null
+          id?: string
+          ip_address?: string | null
+          is_verified?: boolean | null
+          latitude?: number | null
+          longitude?: number | null
+          verification_method?: string | null
+          worker_id: string
+          zone?: string | null
+        }
+        Update: {
+          check_in_time?: string
+          check_out_time?: string | null
+          created_at?: string | null
+          device_fingerprint?: string | null
+          id?: string
+          ip_address?: string | null
+          is_verified?: boolean | null
+          latitude?: number | null
+          longitude?: number | null
+          verification_method?: string | null
+          worker_id?: string
+          zone?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_logs_worker_id_fkey"
+            columns: ["worker_id"]
+            isOneToOne: false
+            referencedRelation: "workers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      device_fingerprints: {
+        Row: {
+          browser_info: string | null
+          fingerprint: string
+          first_seen_at: string | null
+          flagged: boolean | null
+          id: string
+          last_seen_at: string | null
+          os_version: string | null
+          screen_resolution: string | null
+          total_workers_count: number | null
+        }
+        Insert: {
+          browser_info?: string | null
+          fingerprint: string
+          first_seen_at?: string | null
+          flagged?: boolean | null
+          id?: string
+          last_seen_at?: string | null
+          os_version?: string | null
+          screen_resolution?: string | null
+          total_workers_count?: number | null
+        }
+        Update: {
+          browser_info?: string | null
+          fingerprint?: string
+          first_seen_at?: string | null
+          flagged?: boolean | null
+          id?: string
+          last_seen_at?: string | null
+          os_version?: string | null
+          screen_resolution?: string | null
+          total_workers_count?: number | null
+        }
+        Relationships: []
+      }
+      worker_locations: {
+        Row: {
+          accuracy: number | null
+          id: string
+          latitude: number
+          longitude: number
+          recorded_at: string | null
+          worker_id: string
+          zone: string | null
+        }
+        Insert: {
+          accuracy?: number | null
+          id?: string
+          latitude: number
+          longitude: number
+          recorded_at?: string | null
+          worker_id: string
+          zone?: string | null
+        }
+        Update: {
+          accuracy?: number | null
+          id?: string
+          latitude?: number
+          longitude?: number
+          recorded_at?: string | null
+          worker_id?: string
+          zone?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "worker_locations_worker_id_fkey"
+            columns: ["worker_id"]
+            isOneToOne: false
+            referencedRelation: "workers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workers: {
+        Row: {
+          created_at: string | null
+          department: string | null
+          employee_id: string
+          full_name: string
+          id: string
+          is_active: boolean | null
+          phone: string | null
+          updated_at: string | null
+          zone: string
+        }
+        Insert: {
+          created_at?: string | null
+          department?: string | null
+          employee_id: string
+          full_name: string
+          id?: string
+          is_active?: boolean | null
+          phone?: string | null
+          updated_at?: string | null
+          zone: string
+        }
+        Update: {
+          created_at?: string | null
+          department?: string | null
+          employee_id?: string
+          full_name?: string
+          id?: string
+          is_active?: boolean | null
+          phone?: string | null
+          updated_at?: string | null
+          zone?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +239,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      anomaly_severity: "low" | "medium" | "high" | "critical"
+      anomaly_type: "buddy_punching" | "shared_device" | "impossible_travel"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +367,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      anomaly_severity: ["low", "medium", "high", "critical"],
+      anomaly_type: ["buddy_punching", "shared_device", "impossible_travel"],
+    },
   },
 } as const
