@@ -1,108 +1,66 @@
-import { Trophy, TrendingUp, Medal } from 'lucide-react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { cn } from '@/lib/utils';
+import React from 'react';
+import { Trophy, Medal, Star, ArrowUpRight } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
-interface ZoneData {
-  rank: number;
-  zone: string;
-  supervisor: string;
-  attendance: number;
-  tasksCleared: number;
-  efficiency: number;
-}
-
-const leaderboardData: ZoneData[] = [
-  { rank: 1, zone: 'South Delhi', supervisor: 'A. Singh', attendance: 98.5, tasksCleared: 156, efficiency: 97 },
-  { rank: 2, zone: 'Rohini', supervisor: 'P. Verma', attendance: 96.2, tasksCleared: 142, efficiency: 94 },
-  { rank: 3, zone: 'Dwarka', supervisor: 'M. Kumar', attendance: 94.8, tasksCleared: 138, efficiency: 92 },
-  { rank: 4, zone: 'Shahdara', supervisor: 'R. Gupta', attendance: 93.1, tasksCleared: 125, efficiency: 89 },
-  { rank: 5, zone: 'Karol Bagh', supervisor: 'S. Sharma', attendance: 91.4, tasksCleared: 118, efficiency: 86 },
+// Mock data as per PPT's performance tracking
+const topPerformers = [
+  { rank: 1, name: "Rajesh Kumar", zone: "Rohini", score: 98, tasks: 142, status: "Elite" },
+  { rank: 2, name: "Anita Sharma", zone: "South Delhi", score: 95, tasks: 138, status: "Pro" },
+  { rank: 3, name: "Vikram Singh", zone: "Najafgarh", score: 92, tasks: 125, status: "Rising Star" },
+  { rank: 4, name: "Suresh Meena", zone: "City-SP", score: 88, tasks: 110, status: "Active" },
+  { rank: 5, name: "Pooja Devi", zone: "Shahdara", score: 85, tasks: 105, status: "Active" },
 ];
 
 const Leaderboard = () => {
-  const getRankIcon = (rank: number) => {
-    if (rank === 1) return <Trophy className="h-4 w-4 text-status-warning" />;
-    if (rank === 2) return <Medal className="h-4 w-4 text-muted-foreground" />;
-    if (rank === 3) return <Medal className="h-4 w-4 text-amber-700" />;
-    return <span className="text-sm font-medium text-muted-foreground">{rank}</span>;
-  };
-
-  const getAttendanceColor = (value: number) => {
-    if (value >= 95) return 'text-status-success';
-    if (value >= 90) return 'text-status-warning';
-    return 'text-status-danger';
-  };
-
   return (
-    <div className="dashboard-card h-full flex flex-col animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-lg font-semibold text-foreground">Daily Performance Leaderboard</h3>
-          <p className="text-sm text-muted-foreground">Top zones by efficiency</p>
+    <div className="dashboard-card animate-fade-in-up bg-white p-5 rounded-xl border border-slate-200">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-yellow-100 text-yellow-600">
+            <Trophy className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-slate-800">Field Performance Leaderboard</h3>
+            <p className="text-xs text-slate-500">Based on verified work-site reports</p>
+          </div>
         </div>
-        <div className="flex items-center gap-1 text-xs text-status-success font-medium">
-          <TrendingUp className="h-3 w-3" />
-          <span>+5% avg</span>
-        </div>
+        <Badge variant="outline" className="text-indigo-600 border-indigo-200 bg-indigo-50">
+          Updated Live
+        </Badge>
       </div>
 
-      <div className="flex-1 overflow-auto -mx-5">
-        <Table>
-          <TableHeader>
-            <TableRow className="hover:bg-transparent border-border">
-              <TableHead className="w-12 text-center pl-5">Rank</TableHead>
-              <TableHead>Zone</TableHead>
-              <TableHead className="hidden sm:table-cell">Supervisor</TableHead>
-              <TableHead className="text-right">Attendance</TableHead>
-              <TableHead className="text-right pr-5 hidden md:table-cell">Tasks</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {leaderboardData.map((zone) => (
-              <TableRow 
-                key={zone.rank} 
-                className={cn(
-                  "cursor-pointer transition-colors",
-                  zone.rank === 1 && "bg-status-warning/5"
-                )}
-              >
-                <TableCell className="text-center pl-5">
-                  <div className="flex items-center justify-center w-6 h-6">
-                    {getRankIcon(zone.rank)}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div>
-                    <p className="font-medium text-foreground">{zone.zone}</p>
-                    <p className="text-xs text-muted-foreground sm:hidden">{zone.supervisor}</p>
-                  </div>
-                </TableCell>
-                <TableCell className="hidden sm:table-cell text-muted-foreground">
-                  {zone.supervisor}
-                </TableCell>
-                <TableCell className="text-right">
-                  <span className={cn("font-semibold", getAttendanceColor(zone.attendance))}>
-                    {zone.attendance}%
-                  </span>
-                </TableCell>
-                <TableCell className="text-right pr-5 hidden md:table-cell">
-                  <span className="font-medium text-foreground">{zone.tasksCleared}</span>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <div className="space-y-4">
+        {topPerformers.map((emp) => (
+          <div key={emp.rank} className="flex items-center justify-between p-3 rounded-lg border border-slate-50 hover:bg-slate-50 transition-colors">
+            <div className="flex items-center gap-4">
+              <div className="w-8 h-8 flex items-center justify-center font-bold text-slate-400">
+                {emp.rank === 1 ? <Medal className="text-yellow-500" /> : `#${emp.rank}`}
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-700">{emp.name}</p>
+                <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">{emp.zone} Zone</p>
+              </div>
+            </div>
 
-      <button className="mt-3 text-sm font-medium text-primary hover:text-primary/80 transition-colors text-center">
-        View Full Rankings →
+            <div className="flex items-center gap-6">
+              <div className="text-right">
+                <p className="text-sm font-bold text-indigo-600">{emp.score}%</p>
+                <p className="text-[10px] text-slate-400">Perf. Score</p>
+              </div>
+              <div className="text-right hidden sm:block">
+                <p className="text-sm font-bold text-slate-700">{emp.tasks}</p>
+                <p className="text-[10px] text-slate-400">Tasks Verified</p>
+              </div>
+              <div className="flex items-center justify-center bg-indigo-50 p-1 rounded">
+                 <ArrowUpRight className="h-3 w-3 text-indigo-500" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <button className="w-full mt-6 py-2 text-xs font-semibold text-indigo-600 border border-indigo-100 rounded-lg hover:bg-indigo-50 transition-colors">
+        View Full Workforce Analytics
       </button>
     </div>
   );
