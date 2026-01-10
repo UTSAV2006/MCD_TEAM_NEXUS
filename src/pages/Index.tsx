@@ -5,6 +5,7 @@ import Sidebar from '@/components/layout/Sidebar';
 import SummaryCard from '@/components/dashboard/SummaryCard';
 import MapWidget from '@/components/dashboard/MapWidget';
 import AlertsFeed from '@/components/dashboard/AlertsFeed';
+import ReportIssue from '@/components/dashboard/ReportIssue';
 import Leaderboard from '@/components/dashboard/Leaderboard';
 import GhostDetectionPanel from '@/components/dashboard/GhostDetectionPanel';
 import AttendanceTab from '@/components/dashboard/AttendanceTab';
@@ -36,6 +37,7 @@ const Index = ({ user, onLogout }: { user: any, onLogout: () => void }) => {
           </>
         )}
         {activeTab === 'attendance' && <AttendanceTab />}
+        {activeTab === 'rapid' && <ReportIssue />}
         {activeTab === 'ghost' && <GhostDetectionPanel />}
       </main>
     </div>
