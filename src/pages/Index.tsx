@@ -27,7 +27,7 @@ const Index = ({ user, onLogout }: { user: any, onLogout: () => void }) => {
         activeTab={activeTab} onTabChange={setActiveTab} userRole={user.role} 
       />
 
-      <main className="lg:ml-64 pt-16 p-6">
+      <main className="lg:ml-64 pt-20 p-6">
         {activeTab === 'dashboard' && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
