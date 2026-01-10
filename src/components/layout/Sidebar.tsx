@@ -14,7 +14,7 @@ const navItems = [
   { id: 'dashboard', label: 'Dashboard Overview', icon: LayoutDashboard, roles: ['admin'] },
   { id: 'attendance', label: 'Attendance & Selfie', icon: Fingerprint, roles: ['admin', 'employee'] },
   { id: 'ghost', label: 'AI Ghost Detection', icon: Ghost, roles: ['admin'], badge: 'Beta' },
-  { id: 'reportissue', label: 'Report Issue', icon: Zap, roles: ['admin', 'employee'] },
+  { id: 'rapid', label: 'Report Issue', icon: Zap, roles: ['admin', 'employee'] },
   { id: 'payroll', label: 'My Payroll', icon: Wallet, roles: ['admin', 'employee'] },
   { id: 'reports', label: 'Reports & Analytics', icon: BarChart3, roles: ['admin','hr'] },
   { id: 'raf', label: 'Rapid Action Force(RAF)', icon: FastForward, roles: ['admin', 'r']},
