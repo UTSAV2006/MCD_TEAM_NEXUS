@@ -10,6 +10,7 @@ import Leaderboard from '@/components/dashboard/Leaderboard';
 import GhostDetectionPanel from '@/components/dashboard/GhostDetectionPanel';
 import AttendanceTab from '@/components/dashboard/AttendanceTab';
 import { useGhostDetection } from '@/hooks/useGhostDetection';
+import EmployeeDirectory from '@/components/dashboard/EmployeeDirectory';
 
 const Index = ({ user, onLogout }: { user: any, onLogout: () => void }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -39,6 +40,11 @@ const Index = ({ user, onLogout }: { user: any, onLogout: () => void }) => {
         {activeTab === 'attendance' && <AttendanceTab />}
         {activeTab === 'rapid' && <ReportIssue />}
         {activeTab === 'ghost' && <GhostDetectionPanel />}
+        {(activeTab === 'reports' && (user.role === 'admin' || user.role === 'hr')) && (
+  <div className="animate-in slide-in-from-right-4 duration-500">
+    <EmployeeDirectory />
+  </div>
+)}
       </main>
     </div>
   );

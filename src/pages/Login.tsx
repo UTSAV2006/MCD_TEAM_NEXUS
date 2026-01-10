@@ -9,10 +9,9 @@ const Login = ({ onLogin }: { onLogin: (role: string, name: string) => void }) =
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // Simple Logic for Prototype
-    if (id.startsWith('ADM')) onLogin('admin', 'R. Kumar');
-    else if (id.startsWith('EMP')) onLogin('employee', 'Amit Singh');
-    else alert("Use ID: ADM01 (Admin) or EMP01 (Employee)");
-  };
+    if (id.startsWith('ADM')) onLogin('admin', 'Admin User');
+    else if (id.startsWith('HR')) onLogin('hr', 'HR Manager');
+    else onLogin('employee', 'Field Worker');}
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-sidebar p-4">

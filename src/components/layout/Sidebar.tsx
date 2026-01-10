@@ -7,7 +7,7 @@ interface SidebarProps {
   onClose: () => void;
   activeTab: string;
   onTabChange: (id: string) => void;
-  userRole: 'admin' | 'employee';
+  userRole: 'admin' | 'employee'|'hr';
 }
 
 const navItems = [
@@ -16,7 +16,7 @@ const navItems = [
   { id: 'ghost', label: 'AI Ghost Detection', icon: Ghost, roles: ['admin'], badge: 'Beta' },
   { id: 'rapid', label: 'Report Issue', icon: Zap, roles: ['admin', 'employee'] },
   { id: 'payroll', label: 'My Payroll', icon: Wallet, roles: ['admin', 'employee'] },
-  { id: 'reports', label: 'Reports & Analytics', icon: BarChart3, roles: ['admin'] },
+  { id: 'reports', label: 'Reports & Analytics', icon: BarChart3, roles: ['admin','hr'] },
 ];
 
 const Sidebar = ({ isOpen, onClose, activeTab, onTabChange, userRole }: SidebarProps) => {

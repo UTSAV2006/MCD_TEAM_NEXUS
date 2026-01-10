@@ -10,7 +10,7 @@ const EmployeeDirectory = () => {
   const filteredEmployees = employeeDatabase.filter(emp => 
     emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     emp.id.includes(searchTerm)
-  ).slice(0, 10); // Performance ke liye sirf pehle 10 dikhayenge
+  ).slice(0, 10);
 
   return (
     <div className="dashboard-card animate-in fade-in duration-700">
