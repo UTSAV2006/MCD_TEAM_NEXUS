@@ -1,4 +1,4 @@
-import { LayoutDashboard, Fingerprint, Ghost, Zap, Wallet, BarChart3, Settings } from 'lucide-react';
+import { LayoutDashboard, Fingerprint, Ghost, Zap, Wallet, BarChart3, Settings, FastForward } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
@@ -14,9 +14,10 @@ const navItems = [
   { id: 'dashboard', label: 'Dashboard Overview', icon: LayoutDashboard, roles: ['admin'] },
   { id: 'attendance', label: 'Attendance & Selfie', icon: Fingerprint, roles: ['admin', 'employee'] },
   { id: 'ghost', label: 'AI Ghost Detection', icon: Ghost, roles: ['admin'], badge: 'Beta' },
-  { id: 'rapid', label: 'Report Issue', icon: Zap, roles: ['admin', 'employee'] },
+  { id: 'reportissue', label: 'Report Issue', icon: Zap, roles: ['admin', 'employee'] },
   { id: 'payroll', label: 'My Payroll', icon: Wallet, roles: ['admin', 'employee'] },
   { id: 'reports', label: 'Reports & Analytics', icon: BarChart3, roles: ['admin','hr'] },
+  { id: 'rapidaction', label: 'Rapid Action Force(RAF)', icon: FastForward, roles: ['admin', 'r']},
 ];
 
 const Sidebar = ({ isOpen, onClose, activeTab, onTabChange, userRole }: SidebarProps) => {
