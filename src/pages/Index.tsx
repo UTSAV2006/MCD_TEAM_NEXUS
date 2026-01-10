@@ -9,6 +9,7 @@ import AttendanceTab from '@/components/dashboard/AttendanceTab';
 import { useGhostDetection } from '@/hooks/useGhostDetection';
 import RapidActionForce from '@/components/dashboard/RapidActionForce';
 import MyPayroll from '@/components/dashboard/MyPayroll';
+import ReportsAnalytics from '@/components/dashboard/ReportsInsights';
 
 import ReportIssue from '@/components/dashboard/ReportIssue';
 
@@ -46,6 +47,7 @@ const Index = ({ user, onLogout }: { user: any, onLogout: () => void }) => {
         {activeTab === 'ghost' && <GhostDetectionPanel />}
         {activeTab === 'raf' && <RapidActionForce />}
         {activeTab === 'pay' && <MyPayroll />}
+        {activeTab === 'report' && <ReportsAnalytics />}
         
         {(activeTab === 'reports' && (user.role === 'admin' || user.role === 'hr')) && (
           <div className="space-y-6">
