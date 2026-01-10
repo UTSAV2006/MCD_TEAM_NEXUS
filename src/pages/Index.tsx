@@ -7,15 +7,17 @@ import MapWidget from '@/components/dashboard/MapWidget';
 import GhostDetectionPanel from '@/components/dashboard/GhostDetectionPanel';
 import AttendanceTab from '@/components/dashboard/AttendanceTab';
 import { useGhostDetection } from '@/hooks/useGhostDetection';
-import EmployeeDirectory from '@/components/dashboard/EmployeeDirectory';
+
+import ReportIssue from '@/components/dashboard/ReportIssue';
+
+
 
 const Index = ({ user, onLogout }: { user: any, onLogout: () => void }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const { stats } = useGhostDetection();
   
-  const ghostAnomalies = getGhostAnomalies(attendanceDatabase);
-  const presentToday = attendanceDatabase.filter(a => a.date === new Date().toISOString().split('T')[0] && a.status === 'Present').length;
+  
 
   return (
     <div className="min-h-screen bg-background">
@@ -40,11 +42,11 @@ const Index = ({ user, onLogout }: { user: any, onLogout: () => void }) => {
         {activeTab === 'attendance' && <AttendanceTab />}
         {activeTab === 'rapid' && <ReportIssue />}
         {activeTab === 'ghost' && <GhostDetectionPanel />}
-        {activeTab === 'payroll' && <PayrollSection />}
+        
         {(activeTab === 'reports' && (user.role === 'admin' || user.role === 'hr')) && (
           <div className="space-y-6">
-            <AttendanceAnalytics />
-            <EmployeeDirectory />
+            
+            
           </div>
         )}
       </main>
