@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Index from './pages/Index';
 import Login from './pages/Login';
 
+
 // User type definition
 interface User {
   role: 'admin' | 'employee';
