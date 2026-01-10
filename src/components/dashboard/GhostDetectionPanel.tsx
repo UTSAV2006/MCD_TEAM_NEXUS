@@ -184,7 +184,7 @@ const GhostDetectionPanel = () => {
                             size="sm"
                             variant="outline"
                             className="h-7 text-xs gap-1"
-                            onClick={() => handleResolve(anomaly.id, 'Admin')}
+                            onClick={() => handleResolve(anomaly.id)}
                           >
                             <CheckCircle className="h-3 w-3" />
                             Resolve

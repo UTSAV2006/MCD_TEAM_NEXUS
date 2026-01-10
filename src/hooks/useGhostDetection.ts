@@ -72,7 +72,7 @@ export const useGhostDetection = () => {
     }, 2000);
   };
 
-  const handleResolve = (id: string) => {
+  const handleResolve = (id: string, _resolvedBy?: string) => {
     setAnomalies(prev => prev.map(a => a.id === id ? { ...a, is_resolved: true } : a));
   };
 
