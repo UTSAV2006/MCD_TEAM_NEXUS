@@ -7,7 +7,7 @@ const AttendanceModule = () => {
   const handleAttendance = () => {
     setStatus('scanning');
     
-    // 1. Location Access mangna (As per PPT site-verification)
+    // 1. Location Access
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setLocation({
