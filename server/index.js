@@ -38,10 +38,85 @@ app.get("/init-employees", async (req, res) => {
       zone TEXT,
       phone TEXT,
       email TEXT,
-      status TEXT
+      status TEXT,
+      password TEXT DEFAULT '1234',
+      avatar TEXT,
+      address TEXT,
+      joining_date DATE DEFAULT CURRENT_DATE
     );
   `);
   res.send("EMPLOYEE TABLE CREATED");
+});
+
+/* ======================
+   LOGIN / AUTHENTICATION
+====================== */
+app.post("/api/login", async (req, res) => {
+  const { employee_id, password } = req.body;
+  
+  try {
+    const { rows } = await db.query(
+      "SELECT * FROM employees WHERE id = $1 AND password = $2",
+      [employee_id, password]
+    );
+    
+    if (rows.length === 0) {
+      return res.status(401).json({ error: "Invalid Employee ID or Password" });
+    }
+    
+    const employee = rows[0];
+    
+    // Determine role based on ID prefix or role field
+    let userRole = 'employee';
+    if (employee_id.startsWith('ADM') || employee.role === 'Senior Engineer') {
+      userRole = 'admin';
+    } else if (employee_id.startsWith('HR') || employee.role === 'Inspector') {
+      userRole = 'hr';
+    }
+    
+    res.json({
+      success: true,
+      employee: {
+        ...employee,
+        userRole
+      }
+    });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.get("/api/employee/:id", async (req, res) => {
+  try {
+    const { rows } = await db.query(
+      "SELECT * FROM employees WHERE id = $1",
+      [req.params.id]
+    );
+    
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+    
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.get("/api/employee-attendance/:id", async (req, res) => {
+  try {
+    const { rows } = await db.query(`
+      SELECT * FROM attendance 
+      WHERE employee_id = $1 
+      ORDER BY date DESC
+      LIMIT 30
+    `, [req.params.id]);
+    
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 app.get("/seed-employees", async (req, res) => {

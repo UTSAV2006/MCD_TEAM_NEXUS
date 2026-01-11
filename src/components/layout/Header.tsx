@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Bell, ChevronDown, Menu, Shield } from 'lucide-react';
+import { Bell, ChevronDown, Menu, Shield, LogOut, User, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,12 +10,15 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { LoggedInEmployee } from '@/App';
 
 interface HeaderProps {
   onMenuToggle: () => void;
+  employee?: LoggedInEmployee;
+  onLogout?: () => void;
 }
 
-const Header = ({ onMenuToggle }: HeaderProps) => {
+const Header = ({ onMenuToggle, employee, onLogout }: HeaderProps) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -41,6 +44,18 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
       year: 'numeric',
       timeZone: 'Asia/Kolkata',
     });
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  };
+
+  const getRoleBadge = (role: string) => {
+    switch (role) {
+      case 'admin': return 'Administrator';
+      case 'hr': return 'HR Manager';
+      default: return 'Employee';
+    }
   };
 
   return (
@@ -139,21 +154,43 @@ const Header = ({ onMenuToggle }: HeaderProps) => {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground text-sm font-semibold">
-                    RK
+                    {employee ? getInitials(employee.name) : 'RK'}
                   </AvatarFallback>
                 </Avatar>
                 <div className="hidden sm:flex flex-col items-start">
-                  <span className="text-sm font-medium">R. Kumar</span>
-                  <span className="text-xs text-sidebar-foreground/70">Administrator</span>
+                  <span className="text-sm font-medium">{employee?.name || 'R. Kumar'}</span>
+                  <span className="text-xs text-sidebar-foreground/70">
+                    {employee ? getRoleBadge(employee.userRole) : 'Administrator'}
+                  </span>
                 </div>
                 <ChevronDown className="h-4 w-4 hidden sm:block" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48 bg-card">
-              <DropdownMenuItem className="cursor-pointer">Profile Settings</DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">System Preferences</DropdownMenuItem>
+            <DropdownMenuContent align="end" className="w-56 bg-card">
+              {employee && (
+                <>
+                  <div className="px-3 py-2 border-b">
+                    <p className="text-sm font-medium">{employee.name}</p>
+                    <p className="text-xs text-muted-foreground">{employee.id} • {employee.zone}</p>
+                  </div>
+                </>
+              )}
+              <DropdownMenuItem className="cursor-pointer gap-2">
+                <User className="h-4 w-4" />
+                Profile Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer gap-2">
+                <Settings className="h-4 w-4" />
+                System Preferences
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer text-status-danger">Sign Out</DropdownMenuItem>
+              <DropdownMenuItem 
+                className="cursor-pointer text-status-danger gap-2"
+                onClick={onLogout}
+              >
+                <LogOut className="h-4 w-4" />
+                Sign Out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
