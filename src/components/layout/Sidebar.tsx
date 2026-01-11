@@ -2,6 +2,7 @@ import { LayoutDashboard, Fingerprint, Ghost, Zap, Wallet, BarChart3, Settings, 
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { BarChart } from 'recharts';
+import Leaderboard from '../dashboard/Leaderboard';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -15,11 +16,10 @@ const navItems = [
   { id: 'dashboard', label: 'Dashboard Overview', icon: LayoutDashboard, roles: ['admin'] },
   { id: 'attendance', label: 'Attendance & Selfie', icon: Fingerprint, roles: ['admin', 'employee'] },
   { id: 'ghost', label: 'AI Ghost Detection', icon: Ghost, roles: ['admin'], badge: 'Beta' },
-  { id: 'rapid', label: 'Report Issue', icon: Zap, roles: ['admin', 'employee'] },
-  { id: 'pay', label: 'My Payroll', icon: Wallet, roles: ['admin', 'employee'] },
-  { id: 'report', label: 'Reports & Analytics', icon: BarChart3, roles: ['admin','hr'] },
   { id: 'raf', label: 'Rapid Action Force(RAF)', icon: FastForward, roles: ['admin', 'hr']},
-  { id: 'leader', label: 'Employee Leaderboard', icon: BarChart, roles: ['admin', 'hr']},
+  { id: 'report', label: 'Reports & Analytics', icon: BarChart3, roles: ['admin','hr'] },
+  { id: 'pay', label: 'My Payroll', icon: Wallet, roles: ['admin', 'employee'] },
+  { id: 'rapid', label: 'Report Issue', icon: Zap, roles: ['admin', 'employee'] },
 ];
 
 const Sidebar = ({ isOpen, onClose, activeTab, onTabChange, userRole }: SidebarProps) => {
