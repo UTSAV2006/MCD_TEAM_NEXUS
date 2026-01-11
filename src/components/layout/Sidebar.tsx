@@ -1,6 +1,7 @@
 import { LayoutDashboard, Fingerprint, Ghost, Zap, Wallet, BarChart3, Settings, FastForward } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { BarChart } from 'recharts';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -17,7 +18,8 @@ const navItems = [
   { id: 'rapid', label: 'Report Issue', icon: Zap, roles: ['admin', 'employee'] },
   { id: 'pay', label: 'My Payroll', icon: Wallet, roles: ['admin', 'employee'] },
   { id: 'report', label: 'Reports & Analytics', icon: BarChart3, roles: ['admin','hr'] },
-  { id: 'raf', label: 'Rapid Action Force(RAF)', icon: FastForward, roles: ['admin', 'r']},
+  { id: 'raf', label: 'Rapid Action Force(RAF)', icon: FastForward, roles: ['admin', 'hr']},
+  { id: 'leader', label: 'Employee Leaderboard', icon: BarChart, roles: ['admin', 'hr']},
 ];
 
 const Sidebar = ({ isOpen, onClose, activeTab, onTabChange, userRole }: SidebarProps) => {
