@@ -1,35 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Index from './pages/Index';
 import Login from './pages/Login';
 
-
-// User type definition
-interface User {
-  role: 'admin' | 'employee';
+// Employee type from backend
+export interface LoggedInEmployee {
+  id: string;
   name: string;
+  role: string;
+  department: string;
+  zone: string;
+  phone: string;
+  email: string;
+  status: string;
+  userRole: 'admin' | 'employee' | 'hr';
+  avatar?: string;
+  address?: string;
+  joining_date?: string;
 }
 
 function App() {
-  const [user, setUser] = useState<User | null>(null);
+  const [employee, setEmployee] = useState<LoggedInEmployee | null>(null);
 
-  // Login handle karne ka function
-  const handleLogin = (role: 'admin' | 'employee', name: string) => {
-    setUser({ role, name });
+  // Check for saved session on mount
+  useEffect(() => {
+    const savedEmployee = localStorage.getItem('mcd_employee');
+    if (savedEmployee) {
+      try {
+        setEmployee(JSON.parse(savedEmployee));
+      } catch {
+        localStorage.removeItem('mcd_employee');
+      }
+    }
+  }, []);
+
+  // Login handler
+  const handleLogin = (emp: LoggedInEmployee) => {
+    setEmployee(emp);
+    localStorage.setItem('mcd_employee', JSON.stringify(emp));
   };
 
-  // Logout handle karne ka function
+  // Logout handler
   const handleLogout = () => {
-    setUser(null);
+    setEmployee(null);
+    localStorage.removeItem('mcd_employee');
   };
 
   return (
     <>
-      {!user ? (
-        // Agar login nahi hai toh Login Page dikhao
+      {!employee ? (
         <Login onLogin={handleLogin} />
       ) : (
-        // Agar login hai toh Dashboard (Index) dikhao aur user data pass karo
-        <Index user={user} onLogout={handleLogout} />
+        <Index employee={employee} onLogout={handleLogout} />
       )}
     </>
   );
