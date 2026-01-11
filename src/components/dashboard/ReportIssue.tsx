@@ -5,17 +5,31 @@ import { AlertCircle, Camera, MapPin, Send, CheckCircle2 } from 'lucide-react';
 const ReportIssue = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState("Waste Management Issue")
+  const [description, setDescription] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    // Simulating a network request
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1500);
-  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setLoading(true)
+
+  await fetch("http://localhost:5000/api/issues", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: "MCD-" + Math.floor(1000 + Math.random() * 9000),
+      name: "Citizen",
+      title: category,
+      description,
+      department: "Public",
+      priority: "Medium"
+    })
+  })
+
+  setLoading(false)
+  setSubmitted(true)
+}
+
 
   return (
     <div className="max-w-2xl mx-auto p-4">
@@ -44,7 +58,7 @@ const ReportIssue = () => {
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Issue Category
                 </label>
-                <select className="w-full p-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all bg-white text-slate-700">
+                <select value={category}onChange={e => setCategory(e.target.value)}className="w-full p-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all bg-white text-slate-700">
                   <option>Waste Management Issue</option>
                   <option>Infrastructure Damage</option>
                   <option>Public Safety Concern</option>
@@ -58,14 +72,15 @@ const ReportIssue = () => {
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Detailed Description
                 </label>
-                <textarea 
-                  rows={4}
-                  placeholder="Describe the issue in detail (e.g., exact landmark, severity)..."
-                  className="w-full p-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                  required
-                ></textarea>
-              </div>
-
+                <textarea
+                rows={4}
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                placeholder="Describe the issue in detail (e.g., exact landmark, severity)..."
+                className="w-full p-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                required
+              ></textarea>
+            </div>    
               {/* Attachment Buttons */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <button 
