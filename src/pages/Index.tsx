@@ -14,7 +14,7 @@ import Leaderboard from '@/components/dashboard/Leaderboard';
 import ReportIssue from '@/components/dashboard/ReportIssue';
 import EmployeePayroll from '@/components/dashboard/EmployeePayroll';
 import EmployeeAttendance from '@/components/dashboard/EmployeeAttendance';
-import { LoggedInEmployee } from '@/App';
+import { LoggedInEmployee } from '@/types/employee';
 
 interface IndexProps {
   employee: LoggedInEmployee;

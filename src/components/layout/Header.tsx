@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { LoggedInEmployee } from '@/App';
+import { LoggedInEmployee } from '@/types/employee';
 
 interface HeaderProps {
   onMenuToggle: () => void;
