@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ShieldCheck, Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { api } from '@/lib/api';
 
 interface LoginEmployee {
   id: string;
@@ -21,8 +22,6 @@ interface LoginProps {
   onLogin: (employee: LoginEmployee) => void;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5050';
-
 const Login = ({ onLogin }: LoginProps) => {
   const [employeeId, setEmployeeId] = useState('');
   const [password, setPassword] = useState('');
@@ -36,21 +35,7 @@ const Login = ({ onLogin }: LoginProps) => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_URL}/api/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          employee_id: employeeId.toUpperCase(), 
-          password 
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Login failed');
-      }
-
+      const data = await api.login(employeeId.toUpperCase(), password);
       onLogin(data.employee);
     } catch (err: any) {
       setError(err.message || 'Invalid Employee ID or Password');

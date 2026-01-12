@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import jsPDF from "jspdf";
+import { api } from "@/lib/api";
 
 interface Employee {
   id: string;
@@ -20,19 +21,22 @@ export default function MyPayroll() {
 
   // Load employees
   useEffect(() => {
-    fetch("http://localhost:5050/api/employees")
-      .then(res => res.json())
-      .then(setEmployees);
+    api.getEmployees()
+      .then(setEmployees)
+      .catch(err => console.error("Failed to fetch employees:", err));
   }, []);
 
   // Load payroll
   useEffect(() => {
     if (!selected) return;
     setLoading(true);
-    fetch(`http://localhost:5050/api/payroll-history/${selected}`)
-      .then(res => res.json())
+    api.getPayrollHistory(selected)
       .then(data => {
         setHistory(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch payroll:", err);
         setLoading(false);
       });
   }, [selected]);

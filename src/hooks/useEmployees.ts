@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { api } from "@/lib/api";
 
 export interface Employee {
   id: string;
@@ -16,10 +17,13 @@ export function useEmployees() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5050/api/employees")
-      .then(res => res.json())
+    api.getEmployees()
       .then(data => {
         setEmployees(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch employees:", err);
         setLoading(false);
       });
   }, []);
