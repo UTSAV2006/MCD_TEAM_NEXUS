@@ -68,6 +68,38 @@ export type Database = {
         }
         Relationships: []
       }
+      attendance: {
+        Row: {
+          check_in: string
+          created_at: string
+          date: string
+          employee_id: string
+          id: number
+        }
+        Insert: {
+          check_in?: string
+          created_at?: string
+          date?: string
+          employee_id: string
+          id?: number
+        }
+        Update: {
+          check_in?: string
+          created_at?: string
+          date?: string
+          employee_id?: string
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attendance_logs: {
         Row: {
           check_in_time: string
@@ -157,6 +189,89 @@ export type Database = {
         }
         Relationships: []
       }
+      employees: {
+        Row: {
+          address: string | null
+          avatar: string | null
+          created_at: string
+          department: string | null
+          email: string | null
+          id: string
+          joining_date: string
+          name: string | null
+          password: string
+          phone: string | null
+          role: string | null
+          status: string | null
+          updated_at: string
+          zone: string | null
+        }
+        Insert: {
+          address?: string | null
+          avatar?: string | null
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          id: string
+          joining_date?: string
+          name?: string | null
+          password?: string
+          phone?: string | null
+          role?: string | null
+          status?: string | null
+          updated_at?: string
+          zone?: string | null
+        }
+        Update: {
+          address?: string | null
+          avatar?: string | null
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          id?: string
+          joining_date?: string
+          name?: string | null
+          password?: string
+          phone?: string | null
+          role?: string | null
+          status?: string | null
+          updated_at?: string
+          zone?: string | null
+        }
+        Relationships: []
+      }
+      payroll: {
+        Row: {
+          created_at: string
+          employee_id: string
+          month: string
+          present_days: number
+          salary: number
+        }
+        Insert: {
+          created_at?: string
+          employee_id: string
+          month: string
+          present_days?: number
+          salary?: number
+        }
+        Update: {
+          created_at?: string
+          employee_id?: string
+          month?: string
+          present_days?: number
+          salary?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payroll_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       worker_locations: {
         Row: {
           accuracy: number | null
@@ -236,7 +351,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      record_attendance: { Args: { p_employee_id: string }; Returns: undefined }
     }
     Enums: {
       anomaly_severity: "low" | "medium" | "high" | "critical"
