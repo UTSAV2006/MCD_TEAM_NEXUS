@@ -1,1 +1,7 @@
 project_id = "xgnpuruptilwjupzeikd"
+
+[functions.api]
+verify_jwt = false
+
+[functions.ghost-detection]
+verify_jwt = false
