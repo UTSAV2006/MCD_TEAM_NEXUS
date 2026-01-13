@@ -272,6 +272,36 @@ export type Database = {
           },
         ]
       }
+      reports: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          employee_id: string
+          id: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          employee_id: string
+          id?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          employee_id?: string
+          id?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       worker_locations: {
         Row: {
           accuracy: number | null
