@@ -82,7 +82,7 @@ const Index = ({ employee, onLogout }: IndexProps) => {
         {/* Admin attendance management */}
         {activeTab === 'attendance' && !isEmployee && <AttendanceTab />}
 
-        {activeTab === 'rapid' && <ReportIssue />}
+        {activeTab === 'rapid' && <ReportIssue employeeId={employee.id} />}
         {activeTab === 'ghost' && <GhostDetectionPanel />}
         {activeTab === 'raf' && <RapidActionForce />}
         
