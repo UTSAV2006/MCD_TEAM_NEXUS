@@ -265,6 +265,76 @@ serve(async (req: Request) => {
     }
     
     // =====================
+    // SUBMIT REPORT/ISSUE
+    // =====================
+    if (path === '/reports' && req.method === 'POST') {
+      const { employee_id, category, description } = await req.json();
+      
+      console.log(`[REPORT] New report from ${employee_id}: ${category}`);
+      
+      const { data, error } = await supabase
+        .from('reports')
+        .insert({
+          employee_id,
+          category,
+          description,
+          status: 'pending'
+        })
+        .select()
+        .single();
+      
+      if (error) throw error;
+      
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          message: "Report submitted successfully",
+          report_id: data.id 
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // =====================
+    // GET REPORTS
+    // =====================
+    if (path === '/reports' && req.method === 'GET') {
+      const { data, error } = await supabase
+        .from('reports')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      
+      return new Response(
+        JSON.stringify(data || []),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // =====================
+    // GET LAST 10 DAYS ATTENDANCE FOR EMPLOYEE
+    // =====================
+    const last10Match = path.match(/^\/attendance-history\/(.+)$/);
+    if (last10Match && req.method === 'GET') {
+      const id = last10Match[1];
+      
+      const { data, error } = await supabase
+        .from('attendance')
+        .select('*')
+        .eq('employee_id', id)
+        .order('date', { ascending: false })
+        .limit(10);
+      
+      if (error) throw error;
+      
+      return new Response(
+        JSON.stringify(data || []),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // =====================
     // HEALTH CHECK
     // =====================
     if (path === '/health' || path === '' || path === '/') {
